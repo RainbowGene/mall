@@ -1,6 +1,6 @@
 <template>
-  <div class="goods">
-    <img :src="goods.show.img" alt />
+  <div class="goods-item" @click="goToDetail">
+    <img :src="getImg" alt @load="imgLoad" />
     <div class="goods-info">
       <p>{{goods.title}}</p>
       <span class="price">¥{{goods.price}}</span>
@@ -15,23 +15,36 @@ export default {
   props: {
     goods: {
       type: Object,
-      default() {
-        return [];
-      }
+      default: {}
+    }
+  },
+  methods: {
+    //向事件总线发射事件
+    imgLoad() {
+      this.$bus.$emit("itemImageLoad");
+    },
+    //商品点击事件：跳转详情页
+    goToDetail: function() {
+      this.$router.push("/detail/" + this.goods.iid);
+    }
+  },
+  computed: {
+    getImg() {
+      return this.goods.img || this.goods.image || this.goods.show.img;
     }
   }
 };
 </script>
 
-<style>
-.goods {
+<style scpoed>
+.goods-item {
   padding-bottom: 40px;
   position: relative;
-
   width: 48%;
 }
 .goods img {
   width: 100%;
+  border-radius: 5px;
 }
 
 .goods-info {
@@ -64,7 +77,7 @@ export default {
   content: "";
   position: absolute;
   left: -15px;
-  top: 0;
+  top: -1px;
   width: 14px;
   height: 14px;
   background: url("~assets/img/common/collect.svg") 0 0/14px 14px;

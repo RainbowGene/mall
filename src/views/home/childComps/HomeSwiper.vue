@@ -11,7 +11,7 @@
 <script>
 // import Swiper from "components/common/swiper/Swiper"
 // import SwiperItem from "components/common/swiper/SwiperItem"
-//上诉两个导入可以写成
+//上诉两个导入可以写成,因为自动会找命名为index的问价
 import { Swiper, SwiperItem } from "components/common/swiper/index";
 
 //或者 ：import {Swiper, SwiperItem} from 'common/swiper'
